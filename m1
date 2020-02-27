@@ -12,7 +12,6 @@ public:
 	student();
 	student(int, string, string);
 	student(const student&);
-	~student();
 	void set_academy();
 	void change_name();
 	void get_info();
@@ -39,10 +38,6 @@ student::student(const student& as)
 	academy = as.academy;
 }
 
-student::~student()
-{
-	delete this;
-}
 
 void student::set_academy()
 {
@@ -68,7 +63,7 @@ void student::get_info()
 class success:public student
 {
 protected:
-	int marks[5];
+	int* marks;
 	int n;
 public:
 	success() :student() {};
