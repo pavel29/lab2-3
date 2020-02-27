@@ -1,0 +1,136 @@
+#include <iostream>
+#include <conio.h>
+#include <string>
+using namespace std;
+
+class student
+{
+protected:
+	int age;
+	string name, academy;
+public:
+	student();
+	student(int, string, string);
+	student(const student&);
+	~student();
+	void set_academy();
+	void change_name();
+	void get_info();
+};
+
+student::student()
+{
+	name = "-";
+	age = 0;
+	academy = "-";
+}
+
+student::student(int a, string n, string acad)
+{
+	age = a;
+	name = n;
+	academy = acad;
+}
+
+student::student(const student& as)
+{
+	age = as.age;
+	name = as.name;
+	academy = as.academy;
+}
+
+student::~student()
+{
+	delete this;
+}
+
+void student::set_academy()
+{
+	cout << "enter your academy: ";
+		cin >> academy;
+}
+
+void student::change_name()
+{
+	string nname;
+	cout << "enter new name:";
+	cin >> nname;
+	name = nname;
+}
+
+void student::get_info()
+{
+	cout << "name :" << name << endl;
+	cout << "age :" << age << endl;
+	cout << " academy :" << academy << endl;
+}
+
+class success:public student
+{
+protected:
+	int marks[5];
+	int n;
+public:
+	success() :student() {};
+	success(student& f) : student(f) {};
+	success(int a, string n, string acad) :student(a, n, acad) {};
+	void set_marks(int);
+	void get_marks();
+	int get_size();
+	int get();
+	bool operator==(const success&);
+	~success();
+};
+
+success::~success()
+{
+	delete[] marks;
+}
+
+bool success::operator==(const success& it)
+{
+	if (n != it.n) return false;
+	for (int i = 0; i < n; i++) {
+		if (marks[i] != it.marks[i]) return false;
+	}
+	return true;
+}
+
+void success::set_marks(int size)
+{
+	n = size;
+	cout << "enter "<<size<<" values: ";
+	for (int i(0); i < n; i++)
+		cin >> marks[i];
+}
+
+int success::get_size()
+{
+	return n;
+}
+
+int success::get()
+{
+	return marks[n];
+}
+
+void success::get_marks()
+{
+	cout << "marks: " << endl;
+	for (int i(0); i < 5; i++)
+	{
+		cout  << marks[i] << " ";
+	}
+}
+
+
+int main()
+{
+	success a;
+	success b;
+	a.set_marks(5);
+	b.set_marks(5);
+	cout << (a == b);
+	_getch();
+	return 0;
+}
